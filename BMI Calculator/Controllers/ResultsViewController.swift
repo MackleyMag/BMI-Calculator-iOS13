@@ -11,6 +11,8 @@ import UIKit
 class ResultsViewController: UIViewController {
     
     var imcValue: String?
+    var advice: String?
+    var color: UIColor?
     
     @IBOutlet weak var imcLabel: UILabel!
     @IBOutlet weak var adviceLabel: UILabel!
@@ -18,11 +20,15 @@ class ResultsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imcLabel.text = imcValue
+        adviceLabel.text = advice
+        view.backgroundColor = color
         
         
         
     }
     @IBAction func recalculatePressed(_ sender: UIButton) {
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
 

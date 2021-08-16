@@ -14,7 +14,7 @@ class CalculateViewController: UIViewController {
     @IBOutlet weak var heightSlider: UISlider!
     @IBOutlet weak var weightSlider: UISlider!
     
-    var imc = "0.0"
+    var calculatorBrain = CalculatorBrain()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,17 +32,19 @@ class CalculateViewController: UIViewController {
         let altura = heightSlider.value
         let peso = weightSlider.value
         
-        let imcCalculo = peso / pow(altura, 2)
-        imc = String(format: "%.1f", imcCalculo )
+        calculatorBrain.calculateIMC(peso: peso, altura:altura)
         
-        self.performSegue(withIdentifier: "goToResults", sender: self)
+        
+        performSegue(withIdentifier: "goToResults", sender: self)
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToResults"{
-            let destinationVC = segue.description as! ResultsViewController
-            destinationVC.imcValue =  "0.0"
+            let destinationVC = segue.destination as! ResultsViewController
+            destinationVC.imcValue =  calculatorBrain.getValorIMC()
+            destinationVC.advice = calculatorBrain.getAdvice()
+            destinationVC.color = calculatorBrain.getColor()
             
         }
     }
